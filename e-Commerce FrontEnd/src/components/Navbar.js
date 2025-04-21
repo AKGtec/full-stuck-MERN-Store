@@ -5,7 +5,7 @@ import { UseAppContext } from '../context/Appcontext'
 
 const Navbar = () => {
     const [open, setOpen] = useState(false)
-    const {user, setUser,setShowUserLogin,navigate,setsearchQuery,searchQuery} = UseAppContext ();
+    const {user, setUser,setShowUserLogin,navigate,setsearchQuery,searchQuery,getCardCount} = UseAppContext ();
     const logout = async() => {
         setUser(null);
         navigate("/")
@@ -36,7 +36,7 @@ const Navbar = () => {
 
                 <div onClick={()=> navigate("/cart")} className="relative cursor-pointer">
                     <img src={assets.nav_cart_icon} alt='card' className='w6 opacity-80' />
-                    <button className="absolute -top-2 -right-3 text-xs text-white bg-indigo-500 w-[18px] h-[18px] rounded-full">3</button>
+                    <button className="absolute -top-2 -right-3 text-xs text-white bg-indigo-500 w-[18px] h-[18px] rounded-full">{getCardCount()}</button>
                 </div>
 
                 {(!user ? <button onClick={()=> setShowUserLogin(true)} className="cursor-pointer px-8 py-2 bg-indigo-500 hover:bg-indigo-600 transition text-white rounded-full">
@@ -52,11 +52,16 @@ const Navbar = () => {
                 
             }
             </div>
-
-            <button onClick={() => open ? setOpen(false) : setOpen(true)} aria-label="Menu" className="sm:hidden">
-                {/* Menu Icon SVG */}
-               <img src={assets.menu_icon} alt='menu'/>
-            </button>
+            <div className='flex items-center gap-6 sm:hidden'>
+                <div onClick={()=> navigate("/cart")} className="relative cursor-pointer">
+                    <img src={assets.nav_cart_icon} alt='card' className='w6 opacity-80' />
+                    <button className="absolute -top-2 -right-3 text-xs text-white bg-indigo-500 w-[18px] h-[18px] rounded-full">{getCardCount()}</button>
+                </div>
+                 <button onClick={() => open ? setOpen(false) : setOpen(true)} aria-label="Menu" >
+                    <img src={assets.menu_icon} alt='menu'/>
+                 </button>
+            </div>
+           
 
             {/* Mobile Menu */}
             { open &&(

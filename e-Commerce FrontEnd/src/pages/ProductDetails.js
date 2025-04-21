@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { UseAppContext } from '../context/Appcontext';
 import { Link, useParams } from 'react-router-dom';
 import { assets } from '../assets/assets';
+import ProductCard from '../components/ProductCard';
 
 const ProductDetails = () => {
 
@@ -81,6 +82,21 @@ const ProductDetails = () => {
                             </button>
                         </div>
                     </div>
+                </div>
+                <div className='flex flex-col items-center mt-20'> 
+                    {/*related products*/}
+                    <div className='flex flex-col items-center w-max'>
+                        <p className='text-3xl font-medium'>Related Products</p>
+                        <div className='w-20 h-0.5 bg-indigo-500 rounded-full mt-2'></div>
+                    </div>
+                    <div className='grid grid-cols-2 sd:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-6 mt-6 w-full'>
+                        {relatedProducts.filter((product)=> product.inStock)
+                        .map((product,index)=>(
+                            <ProductCard key={index} product={product} />
+                        ))}
+                    </div>
+                    <button onClick={()=>{navigate("/products");scrollTo(0,0)}} className='mx-auto cursor-pointer px-12 my-12 py-2.5 border rounded text-indigo-500 hover:bg-indigo-500/10 transition '>
+                     see more</button>
                 </div>
             </div>
         );
